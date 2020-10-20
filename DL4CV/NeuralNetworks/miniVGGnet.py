@@ -1,13 +1,7 @@
 # import requires packages
 from keras.models import Sequential
 from keras import backend as K
-from keras.layers.core import Activation
-from keras.layers.convolutional import Conv2D
-from keras.layers.normalization import BatchNormalization
-from keras.layers.convolutional import MaxPooling2D
-from keras.layers.core import Dropout
-from keras.layers.core import Flatten
-from keras.layers.core import Dense
+from keras.layers import Conv2D, BatchNormalization, Input, Activation, MaxPooling2D, Flatten, Dropout, Dense
 
 
 class MiniVGGNet:
@@ -23,10 +17,10 @@ class MiniVGGNet:
         if K.image_data_format() == "channels_first":
             inputShape = (depth, height, width)
             chanDim = 1
+
         # Now crate our model
         # CONV => RELU * 2 => POOL
-        model.add(Conv2D(32, (3, 3), padding="same",
-                         input_shape=inputShape))
+        model.add(Conv2D(32, (3, 3), padding="same", input_shape=inputShape))
         model.add(Activation("relu"))
         model.add(BatchNormalization(axis=chanDim))
         model.add(Conv2D(32, (3, 3), padding="same"))
